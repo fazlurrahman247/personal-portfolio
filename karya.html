@@ -1,0 +1,79 @@
+<section
+  id="karya"
+  class="py-24 px-6 lg:px-12 max-w-[1400px] mx-auto min-h-screen"
+>
+  <!-- Filter Bar -->
+  <div
+    class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8 border-b border-white/10 pb-8"
+  >
+    <div>
+      <h2 class="font-serif text-4xl md:text-5xl mb-4">Karya Terpilih</h2>
+      <p class="text-gray-400 text-sm tracking-wide">
+        Jelajahi karya berdasarkan rasio komposisi.
+      </p>
+    </div>
+
+    <div
+      class="flex flex-wrap gap-4 md:gap-6 text-xs md:text-sm uppercase tracking-widest font-medium text-gray-500"
+      id="filter-container"
+    >
+      <button class="filter-btn active transition-colors" data-filter="all">
+        Semua
+      </button>
+      <button class="filter-btn transition-colors" data-filter="16:9">
+        Landscape
+      </button>
+      <button class="filter-btn transition-colors" data-filter="4:5">
+        Portrait
+      </button>
+      <button class="filter-btn transition-colors" data-filter="9:16">
+        Vertical
+      </button>
+    </div>
+  </div>
+
+  <!-- Portfolio Grid (diisi otomatis dari array di index.html) -->
+  <div
+    class="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6"
+    id="portfolio-grid"
+  ></div>
+</section>
+
+<!-- Modal Preview Gambar -->
+<div
+  id="image-modal"
+  class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 p-4 md:p-10 backdrop-blur-md transition-opacity duration-300 opacity-0"
+>
+  <!-- Tombol Tutup -->
+  <button
+    id="close-modal"
+    class="absolute top-6 right-6 text-white hover:text-accent focus:outline-none transition-colors z-10"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-8 h-8 md:w-10 md:h-10"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+  <!-- Kontainer Gambar -->
+  <div
+    class="relative w-full h-full flex items-center justify-center"
+    id="modal-bg-click"
+  >
+    <img
+      id="modal-image"
+      src=""
+      alt="Preview Desain"
+      class="max-w-full max-h-[90vh] object-contain rounded shadow-2xl scale-95 transition-transform duration-300"
+    />
+  </div>
+</div>

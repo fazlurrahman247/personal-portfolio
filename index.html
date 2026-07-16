@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio | Studio Desain Profesional</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Portfolio data (eksternal) -->
+    <script src="portfolioDesain.js" defer></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Playfair Display untuk sentuhan elegan/high-end, Plus Jakarta Sans untuk keterbacaan modern -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              serif: ['"Playfair Display"', "serif"],
+            },
+            colors: {
+              black: "#0a0a0a",
+              dark: "#121212",
+              light: "#f4f4f5",
+              accent: "#c8a97e" /* Warna emas pudar untuk aksen elegan */,
+            },
+            aspectRatio: {
+              "9/16": "9 / 16",
+              "16/9": "16 / 9",
+              "4/5": "4 / 5",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Custom Styles & Animations */
+      body {
+        background-color: #0a0a0a;
+        color: #f4f4f5;
+      }
+
+      /* Hide scrollbar for cleaner look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      /* Hover efek pada gambar portofolio */
+      .portfolio-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        cursor: pointer; /* Menandakan elemen bisa diklik */
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .portfolio-item img {
+        transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .portfolio-item:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Animasi Filter */
+      .filter-btn {
+        position: relative;
+      }
+      .filter-btn::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0%;
+        height: 1px;
+        background-color: #c8a97e;
+        transition: width 0.3s ease;
+      }
+      .filter-btn:hover::after,
+      .filter-btn.active::after {
+        width: 100%;
+      }
+      .filter-btn.active {
+        color: #c8a97e;
+      }
+
+      /* Transisi fade in untuk grid items saat difilter */
+      .fade-in {
+        animation: fadeIn 0.6s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Menyembunyikan elemen yang tidak sesuai filter */
+      .hidden-item {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-accent selection:text-black">
+    <!-- Navigasi -->
+    <nav
+      class="fixed w-full top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/5 transition-all duration-300"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 lg:px-12 py-1 flex justify-between items-center"
+      >
+        <a href="#" class="block">
+          <img
+            src="assets/FR-logo-white.png"
+            alt="Logo Fazlur"
+            class="w-20 hover:opacity-80 transition-opacity"
+          />
+        </a>
+        <div
+          class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium text-gray-400"
+        >
+          <a href="#karya" class="hover:text-light transition-colors">Karya</a>
+          <a href="#tentang" class="hover:text-light transition-colors"
+            >Tentang</a
+          >
+          <a href="#kontak" class="hover:text-light transition-colors"
+            >Kontak</a
+          >
+        </div>
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-light focus:outline-none hover:text-accent transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 9h16.5m-16.5 6.75h16.5"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Dropdown (Hidden by default) -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 absolute w-full left-0 top-full transition-all duration-300 origin-top"
+      >
+        <div
+          class="flex flex-col px-6 py-6 gap-6 text-center text-sm uppercase tracking-widest font-medium text-gray-400"
+        >
+          <a
+            href="#karya"
+            class="mobile-link hover:text-white hover:bg-white/5 py-2 rounded transition-all"
+            >Karya</a
+          >
+          <a
+            href="#tentang"
+            class="mobile-link hover:text-white hover:bg-white/5 py-2 rounded transition-all"
+            >Tentang</a
+          >
+          <a
+            href="#kontak"
+            class="mobile-link hover:text-white hover:bg-white/5 py-2 rounded transition-all"
+            >Kontak</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header
+      class="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden"
+    >
+      <!-- Elemen dekoratif latar belakang -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-accent/5 rounded-full blur-3xl -z-10"
+      ></div>
+
+      <div class="max-w-4xl mx-auto text-center z-10">
+        <p
+          class="text-accent uppercase tracking-[0.3em] text-sm md:text-base font-medium mb-6"
+        >
+          Desain Grafis & Eksplorasi Visual
+        </p>
+        <h1
+          class="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-tight mb-8"
+        >
+          Merancang <span class="italic text-gray-400">Estetika</span
+          ><br />Bercerita Melalui Visual.
+        </h1>
+        <p
+          class="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12"
+        >
+          Eksplorasi visual dan desain grafis yang dibuat murni untuk hiburan
+          dan showcase pribadi. Tempat berbagi karya dan kreativitas tanpa
+          batas.
+        </p>
+        <a
+          href="#karya"
+          class="inline-block border border-white/20 px-10 py-4 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
+        >
+          Lihat Portofolio
+        </a>
+      </div>
+    </header>
+
+    <!-- Bagian Portofolio / Karya (dipisahkan ke karya.html) -->
+    <div id="karya-root"></div>
+
+    <!-- Tentang & Footer -->
+    <section id="tentang" class="bg-dark py-24 border-t border-white/5">
+      <div
+        class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-16"
+      >
+        <div>
+          <h2 class="font-serif text-4xl mb-8">
+            Ruang Kreatif &<br />Eksplorasi Visual.
+          </h2>
+          <p class="text-gray-400 font-light leading-relaxed mb-6">
+            Halo, saya Fazlur Rahman. Halaman ini adalah ruang khusus untuk
+            memamerkan perjalanan dan eksplorasi desain grafis saya. Semua karya
+            yang ditampilkan di sini dibuat sebagai bentuk hiburan, eksperimen
+            visual, dan wadah showcase pribadi saya.
+          </p>
+          <p class="text-gray-400 font-light leading-relaxed">
+            Saya senang bermain dengan berbagai komposisi dan rasio, mulai dari
+            format sinematik 16:9, proporsi editorial 4:5, hingga format
+            vertikal 9:16 untuk mengekspresikan ide-ide kreatif ke dalam bentuk
+            visual.
+          </p>
+        </div>
+
+        <div id="kontak" class="flex flex-col justify-center">
+          <div class="space-y-8">
+            <div>
+              <p class="text-accent text-xs uppercase tracking-widest mb-2">
+                Sapa Saya
+              </p>
+              <a
+                href="mailto:frdesainer@gmail.com"
+                class="font-serif text-3xl md:text-4xl hover:text-gray-300 transition-colors"
+                >frdesainer@gmail.com</a
+              >
+            </div>
+            <div>
+              <p class="text-accent text-xs uppercase tracking-widest mb-2">
+                Sosial
+              </p>
+              <div
+                class="flex gap-6 text-sm uppercase tracking-widest text-gray-400"
+              >
+                <a
+                  href="https://www.instagram.com/fazlurrrahmann"
+                  class="hover:text-white transition-colors"
+                  >Instagram</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer
+      class="bg-dark py-8 border-t border-white/5 text-center text-xs text-gray-600 uppercase tracking-widest"
+    >
+      <p>&copy; 2026 Fazlur Rahman. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <!-- Logika Javascript untuk Filter Kategori & Modal (markup karya dipisah ke karya.html) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        // --- Logika Hamburger Menu Mobile ---
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobileLinks = document.querySelectorAll(".mobile-link");
+
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+          });
+
+          mobileLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+              mobileMenu.classList.add("hidden");
+            });
+          });
+        }
+
+        // --- Load markup karya ---
+        const karyaRoot = document.getElementById("karya-root");
+        if (!karyaRoot) return;
+
+        try {
+          const res = await fetch("karya.html");
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          karyaRoot.innerHTML = await res.text();
+        } catch (err) {
+          console.error("Gagal memuat karya.html:", err);
+          karyaRoot.innerHTML =
+            '<p class="text-gray-400">Maaf, karya tidak dapat dimuat.</p>';
+          return;
+        }
+
+        // portfolioData diambil dari file eksternal: portfolioDesain.js
+        const portfolioData = window.portfolioData;
+        if (!portfolioData) {
+          console.error(
+            "window.portfolioData tidak ditemukan. Pastikan portfolioDesain.js sudah ter-load.",
+          );
+          return;
+        }
+
+        // --- Render markup portfolio dari array ---
+        const portfolioGrid = document.getElementById("portfolio-grid");
+        if (!portfolioGrid) return;
+        portfolioGrid.innerHTML = "";
+
+        const makeItem = (category, item) => {
+          return `
+            <div class="portfolio-item break-inside-avoid w-full group" data-category="${category}">
+              <div class="relative w-full" style="aspect-ratio: ${category}">
+                <img
+                  src="${item.src}"
+                  alt="${item.alt}"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          `;
+        };
+
+        Object.entries(portfolioData).forEach(([category, items]) => {
+          items.forEach((item) => {
+            portfolioGrid.insertAdjacentHTML(
+              "beforeend",
+              makeItem(category, item),
+            );
+          });
+        });
+
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        const applyFilter = (filterValue) => {
+          const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+          portfolioItems.forEach((item) => {
+            item.classList.remove("fade-in");
+
+            const matches =
+              filterValue === "all" ||
+              item.getAttribute("data-category") === filterValue;
+
+            if (matches) {
+              item.classList.remove("hidden-item");
+              void item.offsetWidth;
+              item.classList.add("fade-in");
+            } else {
+              item.classList.add("hidden-item");
+            }
+          });
+        };
+
+        filterBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            filterBtns.forEach((b) =>
+              b.classList.remove("active", "text-accent"),
+            );
+            btn.classList.add("active", "text-accent");
+
+            applyFilter(btn.getAttribute("data-filter"));
+          });
+        });
+
+        // initial state
+        applyFilter("all");
+
+        // --- Inisialisasi Modal Preview Gambar ---
+        const modal = document.getElementById("image-modal");
+        const modalImg = document.getElementById("modal-image");
+        const closeModalBtn = document.getElementById("close-modal");
+        const modalBgClick = document.getElementById("modal-bg-click");
+
+        if (!modal || !modalImg || !closeModalBtn || !modalBgClick) return;
+
+        // Buka modal saat gambar portofolio diklik
+        const bindModalClicks = () => {
+          const portfolioItems = document.querySelectorAll(".portfolio-item");
+          portfolioItems.forEach((item) => {
+            item.addEventListener("click", () => {
+              const imgSrc = item.querySelector("img").src;
+              modalImg.src = imgSrc;
+
+              modal.classList.remove("hidden");
+              modal.classList.add("flex");
+
+              setTimeout(() => {
+                modal.classList.remove("opacity-0");
+                modalImg.classList.remove("scale-95");
+                modalImg.classList.add("scale-100");
+              }, 10);
+
+              document.body.style.overflow = "hidden";
+            });
+          });
+        };
+
+        bindModalClicks();
+
+        const closeModal = () => {
+          modal.classList.add("opacity-0");
+          modalImg.classList.remove("scale-100");
+          modalImg.classList.add("scale-95");
+
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            modalImg.src = "";
+            document.body.style.overflow = "auto";
+          }, 300);
+        };
+
+        closeModalBtn.addEventListener("click", closeModal);
+
+        modalBgClick.addEventListener("click", (e) => {
+          if (e.target === modalBgClick) closeModal();
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
