@@ -80,5 +80,9 @@ window.portfolioData = {
       src: "https://cdn.phototourl.com/member/2026-07-17-79e1c837-c581-4347-a133-c7b7f1382c2a.jpg",
       alt: "9:16 - UI App islamic",
     },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-36901895-ebb2-44de-8162-d360f2f51b79.jpg",
+      alt: "9:16 - Poster Yakuza",
+    },
   ],
 };
