@@ -16,6 +16,10 @@ window.portfolioData = {
       src: "https://cdn.phototourl.com/free/2026-07-16-3ec27ceb-b2e7-4274-8347-014dc227c6df.jpg",
       alt: "16:9 - Identity",
     },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-537e2ca9-1021-4dc0-b453-9c2335d0af59.jpg",
+      alt: "16:9 - Desain UI Hari Pahlawan",
+    },
   ],
   "4:5": [
     {
@@ -51,6 +55,30 @@ window.portfolioData = {
     {
       src: "https://cdn.phototourl.com/free/2026-07-16-0bed3047-9aff-4b58-abe3-7da06ca0cb8f.jpg",
       alt: "9:16 - Quote ayat",
+    },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-530fcd6b-6da7-43a8-af3c-d8de3f6f8d49.jpg",
+      alt: "9:16 - Jangan sampai dirimu dikendalikan oleh nafsu",
+    },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-cfb64378-b295-43c1-9009-5cd96cee0fb6.png",
+      alt: "9:16 - TR Quote",
+    },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-ecc6c9e9-19ed-49a9-bf06-ac1527e71a3e.jpg",
+      alt: "9:16 - Poster jadwal imsak",
+    },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-4d487e4f-4403-4e99-a69d-92c140090add.jpg",
+      alt: "9:16 - Hanan Attaki quote",
+    },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-4f9bff27-13b1-4d06-97ec-c244c927c552.jpg",
+      alt: "9:16 - Poster Marhaban Ya Ramadhan 2025",
+    },
+    {
+      src: "https://cdn.phototourl.com/member/2026-07-17-79e1c837-c581-4347-a133-c7b7f1382c2a.jpg",
+      alt: "9:16 - UI App islamic",
     },
   ],
 };
